@@ -1,92 +1,98 @@
-# Agl Table
+# Angel Table
 
-A flexible and customizable React Table component with built-in sorting, pagination, search, column visibility, row selection, and responsive card layout.
+A flexible, customizable, and responsive React Table component with built-in sorting, pagination, search, row selection, column visibility, remote data fetching, and responsive card layouts.
 
-## Features
+**[Live Demo](https://demo-table-seven.vercel.app/)**
 
-- **Responsive Layout** – Automatically adapts between table and card views.
-- **Card View** – Display data as cards on smaller screens.
-- **Sorting** – Sort columns in ascending and descending order.
+## ✨ Features
+
+- **Responsive Design** – Automatically adapts to different screen sizes.
+- **Table & Card Views** – Switch between traditional table and card layouts.
+- **Sorting** – Sort columns in ascending or descending order.
 - **Pagination** – Built-in pagination controls.
 - **Search** – Search and filter table data.
 - **Row Selection** – Select individual rows or multiple rows.
-- **Column Visibility** – Show or hide columns dynamically.
-- **Custom Rendering** – Customize cell content using render functions.
-- **Remote Data** – Fetch data from an API using a URL.
-- **Custom Styling** – Customize the appearance using CSS.
-- **TypeScript Support** – Built-in TypeScript declarations.
+- **Column Visibility** – Dynamically show or hide columns.
+- **Custom Rendering** – Customize cell content with render functions.
+- **Remote Data Fetching** – Load data directly from an API endpoint.
+- **Custom Styling** – Customize the appearance with CSS classes.
+- **Dark Mode Support** – Supports dark theme styling.
+- **TypeScript Support** – Includes TypeScript type declarations.
 
-## Installation
+## 📦 Installation
 
-Install the package using npm:
+Install using your preferred package manager.
+
+**npm**
 
 ```bash
 npm install @crong964/angel-table
 ```
 
-Or using yarn:
+**yarn**
 
 ```bash
 yarn add @crong964/angel-table
 ```
 
-Or using pnpm:
+**pnpm**
 
 ```bash
 pnpm add @crong964/angel-table
 ```
 
-## Basic Usage
+## 🚀 Quick Start
 
-Import the `Table` component:
+Import the `Table` component and its stylesheet:
 
 ```tsx
 import { Table } from '@crong964/angel-table';
 import '@crong964/angel-table/style.css';
+
 function App() {
-  return (
-    <Table
-      columns={[
-        {
-          title: 'Name',
-          field: 'name',
-        },
-        {
-          title: 'Email',
-          field: 'email',
-        },
-        {
-          title: 'Age',
-          field: 'age',
-        },
-      ]}
-      rows={[
-        {
-          id: 1,
-          name: 'John Doe',
-          email: 'john@example.com',
-          age: 25,
-        },
-        {
-          id: 2,
-          name: 'Jane Smith',
-          email: 'jane@example.com',
-          age: 28,
-        },
-      ]}
-    />
-  );
+  const columns = [
+    {
+      title: 'Name',
+      field: 'name',
+    },
+    {
+      title: 'Email',
+      field: 'email',
+    },
+    {
+      title: 'Age',
+      field: 'age',
+    },
+  ];
+
+  const rows = [
+    {
+      id: 1,
+      name: 'John Doe',
+      email: 'john@example.com',
+      age: 25,
+    },
+    {
+      id: 2,
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      age: 28,
+    },
+  ];
+
+  return <Table columns={columns} rows={rows} />;
 }
 
 export default App;
 ```
 
-## API Integration
+## 🌐 API Integration
 
-agl Table supports loading data from an API through `setup.url`.
+Angel Table supports remote data fetching through the `setup.url` property.
 
 ```tsx
 import { Table } from '@crong964/angel-table';
+import '@crong964/angel-table/style.css';
 
 function App() {
   return (
@@ -119,21 +125,21 @@ function App() {
 export default App;
 ```
 
-## Advanced Usage
+## ⚙️ Advanced Usage
 
-The following example demonstrates custom columns, responsive card view, column visibility, sorting, and custom cell rendering.
+Angel Table allows you to configure the table layout, customize columns, render custom content, and control column visibility.
 
 ```tsx
 import { Table } from '@crong964/angel-table';
-import './App.css';
+import '@crong964/angel-table/style.css';
 
 function App() {
   return (
     <Table
-      className='e'
+      className='custom-table'
       setup={{
-        viewDefault: 'card',
         keyObject: '_id',
+        viewDefault: 'card',
         showColumns: true,
         url: 'https://fakestoreapi.noksha.dev/api/products',
       }}
@@ -173,52 +179,15 @@ function App() {
           sort: true,
         },
         {
-          title: 'Type',
-          field: 'type',
-          sort: true,
-        },
-        {
-          title: 'Brand',
-          field: 'brand',
-          sort: true,
-        },
-        {
-          title: 'Old Price',
-          field: 'oldPrice',
-          sort: true,
-          render: (row) => `$${row.oldPrice}`,
-        },
-        {
           title: 'Price',
           field: 'price',
           sort: true,
           render: (row) => `$${row.price}`,
         },
         {
-          title: 'Discounted Price',
-          field: 'discountedPrice',
-          sort: true,
-          render: (row) => `$${row.discountedPrice}`,
-        },
-        {
           title: 'Stock',
           field: 'stock',
           sort: true,
-        },
-        {
-          title: 'Size',
-          field: 'size',
-          render: (row) => row.size?.join(', '),
-        },
-        {
-          title: 'New',
-          field: 'isNew',
-          render: (row) => (row.isNew ? 'Yes' : 'No'),
-        },
-        {
-          title: 'Description',
-          field: 'description',
-          show: false,
         },
         {
           title: 'Actions',
@@ -233,9 +202,9 @@ function App() {
 export default App;
 ```
 
-## Column Configuration
+## 📋 Column Configuration
 
-Each column supports the following properties:
+Each column can be configured using the following properties:
 
 | Property    | Type       | Description                 |
 | ----------- | ---------- | --------------------------- |
@@ -244,23 +213,23 @@ Each column supports the following properties:
 | `width`     | `string`   | Column width                |
 | `className` | `string`   | Custom CSS class            |
 | `sort`      | `boolean`  | Enable sorting              |
-| `sortLabel` | `object`   | Custom sorting labels       |
+| `sortLabel` | `object`   | Customize sorting labels    |
 | `show`      | `boolean`  | Control column visibility   |
 | `render`    | `function` | Custom cell rendering       |
 
 ### Special Fields
 
-agl Table provides special fields for common table functionality:
+Angel Table provides special fields for common table functionality.
 
-| Field          | Description            |
-| -------------- | ---------------------- |
-| `index_field`  | Display row index      |
-| `check_field`  | Row selection checkbox |
-| `action_field` | Action column          |
+| Field          | Description                    |
+| -------------- | ------------------------------ |
+| `index_field`  | Display row index              |
+| `check_field`  | Display row selection checkbox |
+| `action_field` | Display an action column       |
 
-### Custom Rendering
+### Custom Cell Rendering
 
-Use `render` to customize how cell values are displayed.
+Use the `render` function to customize how cell content is displayed.
 
 ```tsx
 {
@@ -274,16 +243,16 @@ Use `render` to customize how cell values are displayed.
 }
 ```
 
-## Table Configuration
+## 🛠️ Table Configuration
 
-The `setup` property controls the table's behavior.
+The `setup` property controls the table's behavior and appearance.
 
-| Property      | Type      | Description                              |
-| ------------- | --------- | ---------------------------------------- |
-| `keyObject`   | `string`  | Unique identifier for each row           |
-| `url`         | `string`  | API endpoint for remote data             |
-| `viewDefault` | `string`  | Default display mode (`table` or `card`) |
-| `showColumns` | `boolean` | Enable column visibility controls        |
+| Property      | Type      | Description                       |
+| ------------- | --------- | --------------------------------- |
+| `keyObject`   | `string`  | Unique identifier for each row    |
+| `url`         | `string`  | API endpoint for remote data      |
+| `viewDefault` | `string`  | Default view: `table` or `card`   |
+| `showColumns` | `boolean` | Enable column visibility controls |
 
 Example:
 
@@ -299,29 +268,24 @@ Example:
 />
 ```
 
-## Import Styles
+## 🎨 Styling & Themes
 
-agl Table requires its stylesheet to be imported separately.
+Angel Table requires its stylesheet to be imported separately.
 
 ```tsx
-import { Table } from '@crong964/angel-table';
 import '@crong964/angel-table/style.css';
 ```
 
-Make sure to import the stylesheet once in your application entry point or main component.
+Import the stylesheet once in your application entry point or global layout.
 
-Without importing the stylesheet, the table may not display correctly.
+The component also supports dark theme styling through its theme configuration.
 
-For dark mode, the component supports theme styling through:
+## 🔗 Links
 
-```tsx
-import { Table } from '@crong964/angel-table';
-```
+- **Demo:** https://demo-table-seven.vercel.app/
+- **npm:** https://www.npmjs.com/package/@crong964/angel-table
+- **Repository:** https://github.com/crong964/angel-table
 
-## License
+## 📄 License
 
-Mit
-
-# Demo
-
-link [demo-table-seven.vercel.app](https://demo-table-seven.vercel.app/)
+This project is licensed under the [MIT License](LICENSE).

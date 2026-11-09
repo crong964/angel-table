@@ -4,6 +4,14 @@
   "publishConfig": {
     "access": "public"
   },
+  "keywords": [
+    "react",
+    "react-table",
+    "data-table",
+    "typescript",
+    "nextjs",
+    "table-component"
+  ],
   "description": "A flexible and customizable React Table component",
   "type": "module",
   "files": [
