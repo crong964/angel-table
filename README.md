@@ -9,7 +9,7 @@ A flexible, customizable, and responsive React Table component with built-in sor
 - **Responsive Design** – Automatically adapts to different screen sizes.
 - **Table & Card Views** – Switch between traditional table and card layouts.
 - **Sorting** – Sort columns in ascending or descending order.
-- **Pagination** – Built-in pagination controls.
+- **Pagination** – Supports single and numbered pagination layouts.
 - **Search** – Search and filter table data.
 - **Row Selection** – Select individual rows or multiple rows.
 - **Column Visibility** – Dynamically show or hide columns.
@@ -18,6 +18,7 @@ A flexible, customizable, and responsive React Table component with built-in sor
 - **Custom Styling** – Customize the appearance with CSS classes.
 - **Dark Mode Support** – Supports dark theme styling.
 - **TypeScript Support** – Includes TypeScript type declarations.
+- **Pagination** – Supports compact and numbered pagination layout
 
 ## 📦 Installation
 
