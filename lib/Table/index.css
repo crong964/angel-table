@@ -87,7 +87,7 @@
   --at-white: #1f2937;
   --at-shadow: 0 1px 3px rgb(0 0 0 / 20%);
 }
-
+*,
 .angel-table-container *,
 .angel-table-container *::before,
 .angel-table-container *::after {
@@ -596,17 +596,6 @@
   font-weight: 700;
 }
 
-.angel-table__desktop {
-  display: block;
-  width: 100%;
-  min-width: 0;
-}
-
-.angel-table__mobile {
-  display: none;
-  width: 100%;
-}
-
 .angel-table__cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -679,16 +668,6 @@
    RESPONSIVE
 ===================================================== */
 
-@media (max-width: 1023px) {
-  .angel-table__desktop {
-    display: none;
-  }
-
-  .angel-table__mobile {
-    display: block;
-  }
-}
-
 @media (max-width: 600px) {
   .angel-table__toolbar {
     align-items: stretch;
@@ -723,7 +702,6 @@
   }
 
   .angel-table__pagination {
-    width: 100%;
     justify-content: space-between;
   }
 

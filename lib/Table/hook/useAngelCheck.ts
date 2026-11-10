@@ -34,13 +34,13 @@ export function useAngelCheck<T>({
 
   const handleCheckAll = useCallback(() => {
     let next: any = {};
+    console.log(checkAll);
 
     rowData.forEach((row: any) => {
       next[String(row[keyObject])] = !checkAll;
     });
-
     setCheckedId(next);
-  }, [rowData]);
+  }, [rowData, keyObject, checkAll]);
 
   const handleCheck = useCallback((data: any) => {
     const id = String(data[keyObject]);

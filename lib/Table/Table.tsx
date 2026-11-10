@@ -8,8 +8,11 @@ import { useAngelTable } from './hook/useAngelData';
 import { useAngelColumn } from './hook/useAngelColumn';
 import AngelSort from './components/Sort';
 import type { TAngelTableOption } from './type';
+import { useBreakpoint } from './hook/useBearekPoint';
+import Panigation from './components/Panigation';
 
 export const Table = (data: TAngelTableOption<any>) => {
+  const { widthScreen } = useBreakpoint();
   const { columns, card, className, empty, perPages, selector, setup } =
     useMemo(() => {
       const {
@@ -46,6 +49,7 @@ export const Table = (data: TAngelTableOption<any>) => {
     ),
     is_select = false,
     showColumns,
+    typePagination = 'simple',
   } = useMemo(() => setup, [setup]);
 
   const {
@@ -61,8 +65,8 @@ export const Table = (data: TAngelTableOption<any>) => {
       sort,
       totalPage,
       view,
-      targetRef,
       checkAll,
+      targetRef,
     },
     handle: {
       handleCheck,
@@ -126,7 +130,7 @@ export const Table = (data: TAngelTableOption<any>) => {
       {showColumm
         .filter((column) => column.show)
         .map((column) => {
-          if (column.field === 'check_field') {
+          if (column.field === 'check_field' && is_select) {
             return (
               <th
                 style={{ width: column.width }}
@@ -239,7 +243,11 @@ export const Table = (data: TAngelTableOption<any>) => {
   );
 
   return (
-    <div data-theme={mode} className={`angel-table-container  ${className}`}>
+    <div
+      data-theme={mode}
+      ref={targetRef}
+      className={`angel-table-container  ${className}`}
+    >
       {/* Toolbar */}
       <div className='angel-table-toolbar'>
         <div className='angel-table__toolbar'>
@@ -281,11 +289,11 @@ export const Table = (data: TAngelTableOption<any>) => {
                   setShowColumm([...temp]);
                 }}
                 options={[
-                  ...columns.map((v) => {
+                  ...showColumm.map((v) => {
                     return {
                       value: v.field,
                       title: v.title,
-                      show: true,
+                      show: v.show == undefined ? true : v.show,
                     };
                   }),
                 ]}
@@ -373,7 +381,7 @@ export const Table = (data: TAngelTableOption<any>) => {
         </div>
       </div>
       {/* Body */}
-      <div className='angel-table-body'>
+      <div className='angel-table-body '>
         {loading && (
           <>
             <div className='angel-table__loading-container'>
@@ -385,171 +393,162 @@ export const Table = (data: TAngelTableOption<any>) => {
             </div>
           </>
         )}
+
         {/* Desktop table */}
-        <div className='angel-table__desktop' ref={targetRef}>
-          {view === 'table' ? (
-            <div
-              style={{ maxHeight: setup.heightTable ?? 600 }}
-              className='angel-table '
-            >
-              <table>
-                <thead>{tableHeader}</thead>
-                <tbody>
-                  {rowData.length === 0 && !loading ? (
-                    <tr className=''>
-                      <td colSpan={columns.length}>{renderEmpty()}</td>
-                    </tr>
-                  ) : (
-                    rowData.map((data: any, index: number) => {
-                      const id = String(data[keyObject]);
+        {widthScreen > 600 && view === 'table' ? (
+          <div
+            style={{ maxHeight: setup.heightTable ?? 600 }}
+            className='angel-table '
+          >
+            <table>
+              <thead>{tableHeader}</thead>
+              <tbody>
+                {rowData.length === 0 && !loading ? (
+                  <tr className=''>
+                    <td colSpan={columns.length}>{renderEmpty()}</td>
+                  </tr>
+                ) : (
+                  rowData.map((data: any, index: number) => {
+                    const id = String(data[keyObject]);
 
-                      return (
-                        <tr
-                          key={id}
-                          className={checkedId[id] ? 'is-selected' : ''}
-                        >
-                          {showColumm
-                            .filter((column) => column.show)
-                            .map((column) => {
-                              if (column.field === 'action_field') {
-                                return (
-                                  <td
-                                    key={column.field}
-                                    className={column.className ?? ''}
-                                  >
-                                    {column.render ? column.render(data) : ''}
-                                  </td>
-                                );
-                              }
-                              if (column.field === 'check_field') {
-                                return (
-                                  <td
-                                    key={column.field}
-                                    className={`angel-table__check-cell ${column.className ?? ''}`}
-                                  >
-                                    <input
-                                      type='checkbox'
-                                      checked={!!checkedId[id]}
-                                      onChange={() => handleCheck(data)}
-                                      aria-label={`Chọn dòng ${id}`}
-                                    />
-                                  </td>
-                                );
-                              }
-
-                              if (column.field === 'index_field') {
-                                return (
-                                  <td
-                                    key={column.field}
-                                    className={`angel-table__index-cell ${column.className ?? ''}`}
-                                  >
-                                    {index + 1}
-                                  </td>
-                                );
-                              }
-
+                    return (
+                      <tr
+                        key={id}
+                        className={checkedId[id] ? 'is-selected' : ''}
+                      >
+                        {showColumm
+                          .filter((column) => column.show)
+                          .map((column) => {
+                            if (column.field === 'action_field') {
                               return (
                                 <td
                                   key={column.field}
                                   className={column.className ?? ''}
                                 >
-                                  {column.render
-                                    ? column.render(data)
-                                    : data[column.field]}
+                                  {column.render ? column.render(data) : ''}
                                 </td>
                               );
-                            })}
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <Fragment>
-              {rowData.length === 0 ? (
-                renderEmpty()
-              ) : (
-                <ul className='angel-table__cards'>
-                  {rowData.map((row: any, index: number) => {
-                    let id = row[keyObject];
-                    return (
-                      <Fragment key={id ?? index}>
-                        {card ? (
-                          card.render(
-                            row,
-                            () => handleCheck(row),
-                            checkedId[id],
-                          )
-                        ) : (
-                          <li
-                            onClick={() => {
-                              handleCheck(row);
-                            }}
-                            className='angel-table__card '
-                          >
-                            {checkedId[id] && is_select && (
-                              <span className='is-selected'>Selected</span>
-                            )}
-                            {showColumm
-                              .filter((column) => column.show)
-                              .map((column: any, columnIndex: number) => {
-                                if (
-                                  ['check_field', 'index_field'].includes(
-                                    column.field,
-                                  )
-                                ) {
-                                  return null;
-                                }
-                                if (column.field === 'action_field') {
-                                  return (
-                                    <div
-                                      key={`${id ?? index}-${column.field ?? columnIndex}`}
-                                    >
-                                      {column.render ? (
-                                        column.render(row)
-                                      ) : (
-                                        <></>
-                                      )}
-                                    </div>
-                                  );
-                                }
-                                return (
-                                  <div
-                                    key={`${id ?? index}-${column.field ?? columnIndex}`}
-                                    className='angel-table__card_row'
-                                  >
-                                    <span className='angel-table__card_column_left'>
-                                      {column.title}
-                                    </span>
+                            }
+                            if (column.field === 'check_field') {
+                              return (
+                                <td
+                                  key={column.field}
+                                  className={`angel-table__check-cell ${column.className ?? ''}`}
+                                >
+                                  <input
+                                    type='checkbox'
+                                    checked={!!checkedId[id]}
+                                    onChange={() => handleCheck(data)}
+                                    aria-label={`Chọn dòng ${id}`}
+                                  />
+                                </td>
+                              );
+                            }
 
-                                    <span className='angel-table__card_column_right'>
-                                      {column.render
-                                        ? column.render(row)
-                                        : row[column.field]}
-                                    </span>
-                                  </div>
-                                );
-                              })}
-                          </li>
-                        )}
-                      </Fragment>
+                            if (column.field === 'index_field') {
+                              return (
+                                <td
+                                  key={column.field}
+                                  className={`angel-table__index-cell ${column.className ?? ''}`}
+                                >
+                                  {index + 1}
+                                </td>
+                              );
+                            }
+
+                            return (
+                              <td
+                                key={column.field}
+                                className={column.className ?? ''}
+                              >
+                                {column.render
+                                  ? column.render(data)
+                                  : data[column.field]}
+                              </td>
+                            );
+                          })}
+                      </tr>
                     );
-                  })}
-                </ul>
-              )}
-            </Fragment>
-          )}
-        </div>
-
-        {/* Mobile cards */}
-        <ul className='angel-table__mobile'>
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
+        ) : (
           <Fragment>
             {rowData.length === 0 ? (
               renderEmpty()
             ) : (
-              <li className='angel-table__cards'>
+              <ul className='angel-table__cards'>
+                {rowData.map((row: any, index: number) => {
+                  let id = row[keyObject];
+                  return (
+                    <Fragment key={id ?? index}>
+                      {card ? (
+                        card.render(row, () => handleCheck(row), checkedId[id])
+                      ) : (
+                        <li
+                          onClick={() => {
+                            handleCheck(row);
+                          }}
+                          className='angel-table__card '
+                        >
+                          {checkedId[id] && is_select && (
+                            <span className='is-selected'>Selected</span>
+                          )}
+                          {showColumm
+                            .filter((column) => column.show)
+                            .map((column: any, columnIndex: number) => {
+                              if (
+                                ['check_field', 'index_field'].includes(
+                                  column.field,
+                                )
+                              ) {
+                                return null;
+                              }
+                              if (column.field === 'action_field') {
+                                return (
+                                  <div
+                                    key={`${id ?? index}-${column.field ?? columnIndex}`}
+                                  >
+                                    {column.render ? column.render(row) : <></>}
+                                  </div>
+                                );
+                              }
+                              return (
+                                <div
+                                  key={`${id ?? index}-${column.field ?? columnIndex}`}
+                                  className='angel-table__card_row'
+                                >
+                                  <span className='angel-table__card_column_left'>
+                                    {column.title}
+                                  </span>
+
+                                  <span className='angel-table__card_column_right'>
+                                    {column.render
+                                      ? column.render(row)
+                                      : row[column.field]}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                        </li>
+                      )}
+                    </Fragment>
+                  );
+                })}
+              </ul>
+            )}
+          </Fragment>
+        )}
+
+        {/* Mobile cards */}
+        {widthScreen <= 600 && (
+          <Fragment>
+            {rowData.length === 0 ? (
+              renderEmpty()
+            ) : (
+              <div className='angel-table__cards'>
                 {rowData.map((row: any, index: number) => {
                   const id = String(row[keyObject]);
                   {
@@ -607,13 +606,13 @@ export const Table = (data: TAngelTableOption<any>) => {
                     </Fragment>
                   );
                 })}
-              </li>
+              </div>
             )}
           </Fragment>
-        </ul>
+        )}
 
         {/* Footer / Pagination */}
-        {totalPage > 0 && (
+        {/*{totalPage > 0 && (
           <div className='angel-table__footer'>
             <div className='angel-table__footer-info'>
               {loading ? (
@@ -737,6 +736,24 @@ export const Table = (data: TAngelTableOption<any>) => {
               </button>
             </div>
           </div>
+        )}*/}
+        {totalPage > 0 && (
+          <Panigation
+            onPerPage={function (perPage: number): void {
+              setPerPage(Number(perPage));
+              setPage(1);
+            }}
+            contentPage={contentPage}
+            onPage={function (page: number): void {
+              setPage(() => page);
+            }}
+            type={typePagination}
+            perPages={perPages}
+            perPage={perPage}
+            page={page}
+            loading={loading}
+            totalPage={totalPage}
+          />
         )}
       </div>
     </div>

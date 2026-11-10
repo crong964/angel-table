@@ -7,13 +7,19 @@ function App() {
     <Table
       className='e'
       setup={{
-        viewDefault: 'card',
         keyObject: '_id',
         showColumns: true,
         mode: 'dark',
         url: 'https://fakestoreapi.noksha.dev/api/products',
+        typePagination: 'numbered',
+        is_select: true,
       }}
       columns={[
+        {
+          title: 'No.',
+          field: 'check_field',
+          width: '70px',
+        },
         {
           title: 'No.',
           field: 'index_field',
@@ -80,6 +86,7 @@ function App() {
           title: 'Stock',
           field: 'stock',
           sort: true,
+          show: false,
         },
         {
           title: 'Size',
@@ -100,6 +107,7 @@ function App() {
           title: 'Actions',
           field: 'action_field',
           width: '120px',
+          show: false,
         },
       ]}
     />

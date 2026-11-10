@@ -29,6 +29,9 @@ export function useAngelTable<T>({
     is_select = false,
     selectedItem,
   } = setup;
+  const [rowData, setRowData] = useState(rows);
+  const [loading, setLoading] = useState(false);
+  const [view, setView] = useState(viewDefault);
 
   const {
     data: { page, perPage, totalPage },
@@ -45,13 +48,9 @@ export function useAngelTable<T>({
   } = useAngelCheck<T>({
     is_select,
     keyObject,
-    rowData: rows,
+    rowData: rowData,
     selectedItem,
   });
-
-  const [rowData, setRowData] = useState(rows);
-  const [loading, setLoading] = useState(false);
-  const [view, setView] = useState(viewDefault);
 
   const targetRef = useRef<HTMLDivElement>(null);
   const handleResetFilter = useCallback(() => {
@@ -91,7 +90,7 @@ export function useAngelTable<T>({
         if (angelFetch) {
           let aglData = await angelFetch(angelUrl);
           setRowData(aglData.data ?? []);
-          setTotalPage(Math.max(1, Number(aglData.totalPage ?? 1)));
+          setTotalPage(Math.max(1, Number(aglData.totalPages ?? 1)));
           setCheckedId({});
         } else {
           const response = await fetch(angelUrl, {
@@ -108,7 +107,7 @@ export function useAngelTable<T>({
           if (controller.signal.aborted) return;
 
           setRowData(result.data ?? []);
-          setTotalPage(Math.max(1, Number(result.totalPage ?? 1)));
+          setTotalPage(Math.max(1, Number(result.totalPages ?? 1)));
           setCheckedId({});
         }
 

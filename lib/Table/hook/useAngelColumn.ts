@@ -6,7 +6,10 @@ type TAngelTableColumnOption = {
 export function useAngelColumn({ columns }: TAngelTableColumnOption) {
   const [showColumm, setShowColumm] = useState([
     ...columns.map((column) => {
-      return { ...column, show: true };
+      if (column.show === undefined) {
+        return { ...column, show: true };
+      }
+      return { ...column };
     }),
   ]);
 

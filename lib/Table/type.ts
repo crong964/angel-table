@@ -13,6 +13,7 @@ export type TAngelTableOption<T> = {
     keyObject?: string;
     showColumns?: boolean;
     url?: string;
+    typePagination?: 'numbered' | 'simple';
     viewDefault?: 'table' | 'card';
     is_select?: boolean;
     contentPage?: string;
@@ -22,7 +23,7 @@ export type TAngelTableOption<T> = {
     loadingRender?: () => ReactNode;
     selectedItem?: (data: T[]) => void;
     angelFetch?: (angelUrl: string) => Promise<{
-      totalPage: number;
+      totalPages: number;
       data: T[];
       curPage: number;
     }>;
@@ -77,4 +78,15 @@ export type TAngelSortOption = {
   field: string;
   sortDirection: string;
   onSort?: (d: { field: string; sortDirection: 'asc' | 'desc' }) => void;
+};
+export type TAngelPaginationOption = {
+  onPerPage: (perPage: number) => void;
+  onPage: (page: number) => void;
+  perPages: number[];
+  perPage: number;
+  page: number;
+  loading: boolean;
+  totalPage: number;
+  contentPage: string;
+  type?: 'numbered' | 'simple';
 };
