@@ -18,7 +18,7 @@ const AngelPanigation = ({
       return <span className='angel-table__page-number'>{page}</span>;
     }
 
-    let margin = 3;
+    let margin = 2;
     let tot = margin * 2;
     let panigation: ReactNode[] = [];
     for (let index = page - 1; index > 0 && page - index <= margin; index--) {
@@ -81,97 +81,99 @@ const AngelPanigation = ({
           ]}
           title={perPage + ''}
         />
-        <button
-          type='button'
-          className='angel-table__page-button'
-          disabled={page <= 1 || loading}
-          onClick={() => onPage(1)}
-          aria-label='Trang trước'
-        >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='16'
-            height='16'
-            fill='currentColor'
-            viewBox='0 0 16 16'
+        <div>
+          <button
+            type='button'
+            className='angel-table__page-button'
+            disabled={page <= 1 || loading}
+            onClick={() => onPage(1)}
+            aria-label='Trang trước'
           >
-            <path
-              fillRule='evenodd'
-              d='M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0'
-            />
-            <path
-              fillRule='evenodd'
-              d='M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0'
-            />
-          </svg>
-        </button>
-        <button
-          type='button'
-          className='angel-table__page-button'
-          disabled={page <= 1 || loading}
-          onClick={() => onPage(page - 1)}
-          aria-label='Trang trước'
-        >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='16'
-            height='16'
-            fill='currentColor'
-            viewBox='0 0 16 16'
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='16'
+              height='16'
+              fill='currentColor'
+              viewBox='0 0 16 16'
+            >
+              <path
+                fillRule='evenodd'
+                d='M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0'
+              />
+              <path
+                fillRule='evenodd'
+                d='M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0'
+              />
+            </svg>
+          </button>
+          <button
+            type='button'
+            className='angel-table__page-button'
+            disabled={page <= 1 || loading}
+            onClick={() => onPage(page - 1)}
+            aria-label='Trang trước'
           >
-            <path
-              fillRule='evenodd'
-              d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0'
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='16'
+              height='16'
+              fill='currentColor'
+              viewBox='0 0 16 16'
+            >
+              <path
+                fillRule='evenodd'
+                d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0'
+              />
+            </svg>
+          </button>
 
-        {Panigation}
+          {Panigation}
 
-        <button
-          type='button'
-          className='angel-table__page-button'
-          disabled={page >= totalPage || loading}
-          onClick={() => onPage(page + 1)}
-          aria-label='Trang tiếp theo'
-        >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='16'
-            height='16'
-            fill='currentColor'
-            viewBox='0 0 16 16'
+          <button
+            type='button'
+            className='angel-table__page-button'
+            disabled={page >= totalPage || loading}
+            onClick={() => onPage(page + 1)}
+            aria-label='Trang tiếp theo'
           >
-            <path
-              fillRule='evenodd'
-              d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708'
-            />
-          </svg>
-        </button>
-        <button
-          type='button'
-          className='angel-table__page-button'
-          disabled={page >= totalPage || loading}
-          onClick={() => onPage(totalPage)}
-          aria-label='Trang tiếp theo'
-        >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='16'
-            height='16'
-            fill='currentColor'
-            viewBox='0 0 16 16'
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='16'
+              height='16'
+              fill='currentColor'
+              viewBox='0 0 16 16'
+            >
+              <path
+                fillRule='evenodd'
+                d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708'
+              />
+            </svg>
+          </button>
+          <button
+            type='button'
+            className='angel-table__page-button'
+            disabled={page >= totalPage || loading}
+            onClick={() => onPage(totalPage)}
+            aria-label='Trang tiếp theo'
           >
-            <path
-              fillRule='evenodd'
-              d='M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708'
-            />
-            <path
-              fillRule='evenodd'
-              d='M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708'
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='16'
+              height='16'
+              fill='currentColor'
+              viewBox='0 0 16 16'
+            >
+              <path
+                fillRule='evenodd'
+                d='M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708'
+              />
+              <path
+                fillRule='evenodd'
+                d='M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708'
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );

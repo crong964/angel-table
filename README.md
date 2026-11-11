@@ -290,3 +290,9 @@ The component also supports dark theme styling through its theme configuration.
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## ⭐ Support
+
+If you find this library helpful, please consider giving it a ⭐ on GitHub. Your support is greatly appreciated!

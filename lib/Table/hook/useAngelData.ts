@@ -53,6 +53,7 @@ export function useAngelTable<T>({
   });
 
   const targetRef = useRef<HTMLDivElement>(null);
+  const targetTableRef = useRef<any>(null);
   const handleResetFilter = useCallback(() => {
     setFilter({});
     setPage(1);
@@ -115,6 +116,11 @@ export function useAngelTable<T>({
           behavior: 'smooth',
           block: 'start',
         });
+
+        targetTableRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
       } catch (err) {
         if (err instanceof Error && err.name === 'AbortError') return;
 
@@ -152,6 +158,7 @@ export function useAngelTable<T>({
       loading,
       targetRef,
       checkAll,
+      targetTableRef,
     },
     handle: {
       setPage,

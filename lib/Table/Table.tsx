@@ -67,6 +67,7 @@ export const Table = (data: TAngelTableOption<any>) => {
       view,
       checkAll,
       targetRef,
+      targetTableRef,
     },
     handle: {
       handleCheck,
@@ -399,10 +400,11 @@ export const Table = (data: TAngelTableOption<any>) => {
           <div
             style={{ maxHeight: setup.heightTable ?? 600 }}
             className='angel-table '
+            
           >
             <table>
               <thead>{tableHeader}</thead>
-              <tbody>
+              <tbody ref={targetTableRef}>
                 {rowData.length === 0 && !loading ? (
                   <tr className=''>
                     <td colSpan={columns.length}>{renderEmpty()}</td>
@@ -612,131 +614,7 @@ export const Table = (data: TAngelTableOption<any>) => {
         )}
 
         {/* Footer / Pagination */}
-        {/*{totalPage > 0 && (
-          <div className='angel-table__footer'>
-            <div className='angel-table__footer-info'>
-              {loading ? (
-                'Đang tải...'
-              ) : (
-                <>
-                  {contentPage} <strong>{page}</strong> /{' '}
-                  <strong>{totalPage}</strong>
-                </>
-              )}
-            </div>
 
-            <div className='angel-table__pagination'>
-              <AngelSelect
-                field=''
-                onChange={(e) => {
-                  setPerPage(Number(e));
-                  setPage(1);
-                }}
-                noLabel
-                direction='top'
-                options={[
-                  ...perPages.map((perPage) => {
-                    return { title: perPage + '', value: perPage + '' };
-                  }),
-                ]}
-                title={perPage + ''}
-              />
-              <button
-                type='button'
-                className='angel-table__page-button'
-                disabled={page <= 1 || loading}
-                onClick={() => setPage(() => 1)}
-                aria-label='Trang trước'
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='16'
-                  height='16'
-                  fill='currentColor'
-                  viewBox='0 0 16 16'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    d='M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0'
-                  />
-                </svg>
-              </button>
-              <button
-                type='button'
-                className='angel-table__page-button'
-                disabled={page <= 1 || loading}
-                onClick={() => setPage((current) => Math.max(1, current - 1))}
-                aria-label='Trang trước'
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='16'
-                  height='16'
-                  fill='currentColor'
-                  viewBox='0 0 16 16'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0'
-                  />
-                </svg>
-              </button>
-
-              <span className='angel-table__page-number'>{page}</span>
-
-              <button
-                type='button'
-                className='angel-table__page-button'
-                disabled={page >= totalPage || loading}
-                onClick={() =>
-                  setPage((current) => Math.min(totalPage, current + 1))
-                }
-                aria-label='Trang tiếp theo'
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='16'
-                  height='16'
-                  fill='currentColor'
-                  viewBox='0 0 16 16'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708'
-                  />
-                </svg>
-              </button>
-              <button
-                type='button'
-                className='angel-table__page-button'
-                disabled={page >= totalPage || loading}
-                onClick={() => setPage(() => totalPage)}
-                aria-label='Trang tiếp theo'
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='16'
-                  height='16'
-                  fill='currentColor'
-                  viewBox='0 0 16 16'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    d='M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708'
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-        )}*/}
         {totalPage > 0 && (
           <Panigation
             onPerPage={function (perPage: number): void {
