@@ -402,9 +402,9 @@ export const Table = (data: TAngelTableOption<any>) => {
             className='angel-table '
             
           >
-            <table>
+            <table ref={targetTableRef}>
               <thead>{tableHeader}</thead>
-              <tbody ref={targetTableRef}>
+              <tbody >
                 {rowData.length === 0 && !loading ? (
                   <tr className=''>
                     <td colSpan={columns.length}>{renderEmpty()}</td>
