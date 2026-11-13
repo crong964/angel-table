@@ -81,6 +81,10 @@ function App() {
             width: '70px',
           },
           {
+            field: 'check_field',
+            title: 'Select',
+          },
+          {
             title: 'Room Image',
             field: 'thumbnail',
             render(row: any) {

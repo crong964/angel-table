@@ -147,6 +147,9 @@ export const Table = (data: TAngelTableOption<any>) => {
               </th>
             );
           }
+          if (column.field === 'check_field' && !is_select) {
+            return <></>;
+          }
           if (column.field === 'action_field') {
             return (
               <th
@@ -400,11 +403,10 @@ export const Table = (data: TAngelTableOption<any>) => {
           <div
             style={{ maxHeight: setup.heightTable ?? 600 }}
             className='angel-table '
-            
           >
             <table ref={targetTableRef}>
               <thead>{tableHeader}</thead>
-              <tbody >
+              <tbody>
                 {rowData.length === 0 && !loading ? (
                   <tr className=''>
                     <td colSpan={columns.length}>{renderEmpty()}</td>
@@ -431,7 +433,7 @@ export const Table = (data: TAngelTableOption<any>) => {
                                 </td>
                               );
                             }
-                            if (column.field === 'check_field') {
+                            if (column.field === 'check_field' && is_select) {
                               return (
                                 <td
                                   key={column.field}
@@ -446,7 +448,9 @@ export const Table = (data: TAngelTableOption<any>) => {
                                 </td>
                               );
                             }
-
+                            if (column.field === 'check_field' && !is_select) {
+                              return <></>;
+                            }
                             if (column.field === 'index_field') {
                               return (
                                 <td
