@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 export type TAngelTableOption<T> = {
-  columns: TColumn[];
+  columns: TColumn<T>[];
   perPages?: number[];
   rows?: T[];
   card?: TCard<T>;
@@ -37,11 +37,11 @@ export type TFilter = {
 export type TEmpty = {
   render: () => ReactNode;
 };
-export type TColumn = {
+export type TColumn<T> = {
   title: string;
   className?: string;
   field: 'check_field' | 'index_field' | 'action_field' | (string & {});
-  render?: (row: any) => ReactNode;
+  render?: (row: T) => ReactNode;
   width?: string;
   sort?: boolean;
   sortLabel?: {
@@ -73,8 +73,8 @@ export type TAngelSelectCheck = {
   direction?: 'top' | 'left' | 'right' | 'bottom';
 };
 
-export type TAngelSortOption = {
-  columns: TColumn[];
+export type TAngelSortOption<T> = {
+  columns: TColumn<T>[];
   field: string;
   sortDirection: string;
   onSort?: (d: { field: string; sortDirection: 'asc' | 'desc' }) => void;

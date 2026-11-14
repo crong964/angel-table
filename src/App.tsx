@@ -125,7 +125,7 @@ function App() {
             title: 'Status',
             field: 'status',
             sort: true,
-            render(row: any) {
+            render(row) {
               const status = statusMap[row.status as Room['status']];
               return (
                 <span
@@ -140,7 +140,7 @@ function App() {
             title: 'Capacity',
             field: 'capacity',
             sort: true,
-            render(row: any) {
+            render(row) {
               return `${row.capacity} guests`;
             },
           },
@@ -153,7 +153,7 @@ function App() {
             title: 'Area',
             field: 'area',
             sort: true,
-            render(row: any) {
+            render(row) {
               return `${row.area} m²`;
             },
           },
@@ -161,7 +161,7 @@ function App() {
             title: 'Room Price',
             field: 'price',
             sort: true,
-            render(row: any) {
+            render(row) {
               return (
                 <span className='font-semibold text-blue-600 dark:text-blue-400'>
                   {row.price.toLocaleString('en-US')} VND
@@ -172,7 +172,7 @@ function App() {
           {
             title: 'Discount',
             field: 'discount',
-            render(row: any) {
+            render(row) {
               return (
                 <span className={row.discount > 0 ? 'text-red-500' : ''}>
                   {row.discount}%
@@ -184,7 +184,7 @@ function App() {
           {
             title: 'Customer',
             field: 'customerName',
-            render(row: any) {
+            render(row) {
               return (
                 row.customerName || (
                   <span className='text-gray-400'>No customer</span>
@@ -212,7 +212,7 @@ function App() {
             title: 'Amenities',
             field: 'amenities',
             show: false,
-            render(row: any) {
+            render(row) {
               return (
                 <div className='flex max-w-64 flex-wrap gap-1'>
                   {row.amenities.map((item: any) => (
@@ -230,7 +230,7 @@ function App() {
           {
             title: 'Description',
             field: 'description',
-            render(row: any) {
+            render(row) {
               return (
                 <span
                   className='block max-w-56 truncate'
@@ -244,7 +244,7 @@ function App() {
           {
             title: 'Check-in Date',
             field: 'checkInDate',
-            render(row: any) {
+            render(row) {
               return row.checkInDate
                 ? new Date(row.checkInDate).toLocaleDateString('en-US')
                 : '-';
@@ -254,7 +254,7 @@ function App() {
           {
             title: 'Check-out Date',
             field: 'checkOutDate',
-            render(row: any) {
+            render(row) {
               return row.checkOutDate
                 ? new Date(row.checkOutDate).toLocaleDateString('en-US')
                 : '-';
@@ -264,7 +264,7 @@ function App() {
           {
             title: 'Featured',
             field: 'isFeatured',
-            render(row: any) {
+            render(row) {
               return row.isFeatured ? (
                 <span className='text-yellow-500'>★ Featured</span>
               ) : (
@@ -276,7 +276,7 @@ function App() {
           {
             title: 'Active',
             field: 'isActive',
-            render(row: any) {
+            render(row) {
               return (
                 <span
                   className={row.isActive ? 'text-green-600' : 'text-red-500'}
@@ -290,7 +290,7 @@ function App() {
           {
             title: 'Created At',
             field: 'createdAt',
-            render(row: any) {
+            render(row) {
               return new Date(row.createdAt).toLocaleString('en-US');
             },
             show: false,
@@ -298,7 +298,7 @@ function App() {
           {
             title: 'Updated At',
             field: 'updatedAt',
-            render(row: any) {
+            render(row) {
               return new Date(row.updatedAt).toLocaleString('en-US');
             },
             show: false,
@@ -307,7 +307,7 @@ function App() {
             title: 'Actions',
             field: 'action_field',
             className: 'text-center',
-            render(row: any) {
+            render(row) {
               return (
                 <div className='flex items-center justify-center gap-3'>
                   <button

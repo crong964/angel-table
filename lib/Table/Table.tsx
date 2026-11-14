@@ -11,7 +11,7 @@ import type { TAngelTableOption } from './type';
 import { useBreakpoint } from './hook/useBearekPoint';
 import Panigation from './components/Panigation';
 
-export const Table = (data: TAngelTableOption<any>) => {
+export const Table = <T,>(data: TAngelTableOption<T>) => {
   const { widthScreen } = useBreakpoint();
   const { columns, card, className, empty, perPages, selector, setup } =
     useMemo(() => {
