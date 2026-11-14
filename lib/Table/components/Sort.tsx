@@ -4,12 +4,12 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 
 import type { TAngelSortOption, TColumn } from '../type';
 
-const AngelSort = ({
+const AngelSort = <T,>({
   columns,
   field,
   sortDirection,
   onSort,
-}: TAngelSortOption) => {
+}: TAngelSortOption<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedField, setSelectedField] = useState(field);
   const [selectedSortDirection, setSelectedSortDirection] = useState<
@@ -80,8 +80,8 @@ const AngelSort = ({
           ))}
           <hr />
           {sortColumns
-            .filter((column: TColumn) => column.field === selectedField)
-            .map((column: TColumn) => {
+            .filter((column: TColumn<T>) => column.field === selectedField)
+            .map((column: TColumn<T>) => {
               return (
                 <Fragment key={column.field}>
                   <button
